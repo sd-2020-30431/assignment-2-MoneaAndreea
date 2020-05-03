@@ -4,7 +4,7 @@ from flask_mysqldb import MySQL
 from BusinessLayer.Food import validate_food
 from DataAccess.DBConnectionFood import insert_into_database
 from Models import List
-from Models.Food import Food
+from Models.Food import Food, Event
 import Models.User
 
 app = Flask(__name__)
@@ -28,6 +28,8 @@ def add_item():
         if validate_food(name, quantity, calories, expiredate) == 'ok':
             f = Food(name, quantity, calories, expiredate)
             insert_into_database(f)
+            f.observe("food to donate:", f.donate_op)
+            Event("food to donate:", f.name)
             m1 = Food.compute_calories_perday(f)
             m2 = Food.compute_grams_perday(f)
             flash(m1)

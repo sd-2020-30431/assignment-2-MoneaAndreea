@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, session, abort, flash
 from flask_mysqldb import MySQL
+
 import MySQLdb.cursors
 import re
 
